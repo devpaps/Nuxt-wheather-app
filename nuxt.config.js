@@ -1,5 +1,5 @@
 const pkg = require('./package')
-require('dotenv').config()
+if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
 module.exports = {
   mode: 'universal',
@@ -25,9 +25,6 @@ module.exports = {
   ** Customize the progress-bar color
   */
   loading: { color: '#fff' },
-  env: {
-    environment: process.env.NODE_ENV
-  },
   /*
   ** Global CSS
   */
