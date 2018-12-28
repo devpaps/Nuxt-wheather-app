@@ -15,7 +15,7 @@ const createStore = () => {
         const long = '16.1950004';
 
        await axios
-          .get(`${CORS}https://api.darksky.net/forecast/${process.env.API_KEY}/${lat},${long}?lang=sv&units=auto`)
+          .get(`https://api.darksky.net/forecast/${process.env.API_KEY}/${lat},${long}?lang=sv&units=auto`)
           .then(data => {
             commit('SET_STATUS', data.statusText)
             console.log(data);
@@ -24,8 +24,8 @@ const createStore = () => {
             commit('SET_WHEATHER', wheather)
             
           })
-          .catch(e => {
-            console.log(e);
+          .catch(error => {
+            console.log(error);
             commit('SET_ERROR', error);
           })
 
