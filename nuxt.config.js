@@ -3,7 +3,9 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
 module.exports = {
   mode: 'universal',
-
+  env: {
+    variable: process.env.API_KEY
+  },
   /*
   ** Headers of the page
   */

@@ -9,12 +9,12 @@ const createStore = () => {
       error: ''
     },
     actions: {
-       getWheather({commit}) {
+      async getWheather({commit}) {
         const CORS = 'https://cors-anywhere.herokuapp.com/';
         const lat = '64.1137179';
         const long = '16.1950004';
 
-        axios
+       await axios
           .get(`${CORS}https://api.darksky.net/forecast/${process.env.API_KEY}/${lat},${long}?lang=sv&units=auto`)
           .then(data => {
             commit('SET_STATUS', data.statusText)
