@@ -1,11 +1,9 @@
-const pkg = require('./package')
-if (process.env.NODE_ENV !== 'production') require('dotenv').config()
+require('dotenv').config();
+const pkg = require('./package');
 
 module.exports = {
   mode: 'universal',
-  env: {
-    API_KEY: process.env.API_KEY
-  },
+
   /*
   ** Headers of the page
   */
