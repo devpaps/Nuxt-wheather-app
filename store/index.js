@@ -15,7 +15,7 @@ const createStore = () => {
         const long = '16.1950004';
 
        await axios
-          .get(`${CORS}https://api.darksky.net/forecast/${process.env.NUXT_ENV_API_KEY}/${lat},${long}?lang=sv&units=auto`)
+          .get(`${CORS}https://api.darksky.net/forecast/${process.env.API_KEY}/${lat},${long}?lang=sv&units=auto`)
           .then(data => {
             commit('SET_STATUS', data.statusText)
             console.log(data);

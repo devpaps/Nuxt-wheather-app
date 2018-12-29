@@ -1,4 +1,4 @@
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 const pkg = require('./package');
 
 module.exports = {
@@ -19,7 +19,9 @@ module.exports = {
     ]
   },
 
-
+  env: {
+    API_KEY: process.env.API_KEY
+  },
 
   /*
   ** Customize the progress-bar color
