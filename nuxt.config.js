@@ -1,4 +1,4 @@
-/* require('dotenv').config(); */
+require('dotenv').config();
 const pkg = require('./package');
 
 module.exports = {
@@ -61,7 +61,7 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    /* extractCSS: true, */
+    extractCSS: true,
     extend(config, ctx) {
       
     }
