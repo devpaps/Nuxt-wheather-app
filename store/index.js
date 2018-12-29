@@ -1,5 +1,5 @@
 import Vuex from 'vuex';
-import axios from '~/plugins/axios'
+import axios from 'axios'
 
 const createStore = () => {
   return new Vuex.Store({
@@ -19,6 +19,7 @@ const createStore = () => {
           .then(data => {
             commit('SET_STATUS', data.statusText)
             console.log(data);
+            console.log(process.env.API_KEY);
             let wheather = data.data;
             console.log(wheather);
             commit('SET_WHEATHER', wheather)
