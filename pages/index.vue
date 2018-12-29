@@ -22,6 +22,9 @@ export default {
   },
   methods: {
 
+  },
+    env: {
+    baseUrl: process.env.API_KEY || 'http://localhost:3000'
   }
 }
 </script>
