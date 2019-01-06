@@ -11,8 +11,8 @@ const createStore = () => {
     actions: {
       async getWheather({commit}) {
         const CORS = 'https://cors-anywhere.herokuapp.com/';
-        const lat = '64.1137179';
-        const long = '16.1950004';
+        /* const lat = '64.1137179';
+        const long = '16.1950004'; */
         const KEY = '0103817e28177f2124d9e291e737ed04';
 
         if (process.browser) {
@@ -22,7 +22,6 @@ const createStore = () => {
                 let latitude = location.coords.latitude;
                 let longitude = location.coords.longitude;
                 console.log(latitude + " " + longitude);
-
                 axios
                 .get(`${CORS}https://api.darksky.net/forecast/${KEY}/${latitude},${longitude}?lang=sv&units=auto`)
                 .then(data => {
@@ -38,6 +37,10 @@ const createStore = () => {
                   commit('SET_ERROR', error);
                 })
               })
+          } else {
+            // geolocation is not supported
+            // get your location some other way
+            console.log('geolocation is not enabled on this browser')
           }
         }
         

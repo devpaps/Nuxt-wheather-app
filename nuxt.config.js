@@ -38,7 +38,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-
+    
   ],
 
   /*
@@ -47,7 +47,8 @@ module.exports = {
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
-    ['@nuxtjs/dotenv', { systemvars: true }]
+    ['@nuxtjs/dotenv', { systemvars: true }],
+    '@nuxtjs/pwa'
   ],
   /*
   ** Axios module configuration

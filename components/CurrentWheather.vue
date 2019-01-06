@@ -10,28 +10,31 @@
         <p class="mb-2">Vind: {{ wheather.currently.windSpeed.toFixed(0)}} m/s</p>
         <p class="mb-2">{{ wheather.hourly.summary}}</p>
       </div>
-        <h4>Väderprognos</h4>
-        <div v-if="doneLoading === 'OK'" class="daily mt-10 text-center mx-auto">
+        
+        <div class="dailyWeather mt-10">
+          <h4 class="text-center mb-3">Väderprognos</h4>
+          <div v-if="doneLoading === 'OK'" class="daily text-center mx-auto">
           <div class="wheaterTomorrow">
-            <img :src="vader[wheather.daily.data[1].icon]" class="mb-5" alt="">
+            <img :src="vader[wheather.daily.data[1].icon]" class="mb-5 mx-5" alt="">
             <pre>↑{{ wheather.daily.data[1].temperatureMax.toFixed(0) }}&deg;C</pre>
             <pre>↓{{ wheather.daily.data[1].temperatureMin.toFixed(0) }}&deg;C</pre>
           </div>
           <div class="wheaterTomorrow">
-            <img :src="vader[wheather.daily.data[2].icon]" class="mb-5" alt="">
+            <img :src="vader[wheather.daily.data[2].icon]" class="mb-5 mx-5" alt="">
             <pre>↑{{ wheather.daily.data[2].temperatureMax.toFixed(0) }}&deg;C</pre>
             <pre>↓{{ wheather.daily.data[2].temperatureMin.toFixed(0) }}&deg;C</pre>
           </div>
           <div class="wheaterTomorrow">
-            <img :src="vader[wheather.daily.data[3].icon]" class="mb-5" alt="">
+            <img :src="vader[wheather.daily.data[3].icon]" class="mb-5 mx-5" alt="">
             <pre>↑{{ wheather.daily.data[3].temperatureMax.toFixed(0) }}&deg;C</pre>
             <pre>↓{{ wheather.daily.data[3].temperatureMin.toFixed(0) }}&deg;C</pre>
           </div>
           <div class="wheaterTomorrow">
-            <img :src="vader[wheather.daily.data[4].icon]" class="mb-5" alt="">
+            <img :src="vader[wheather.daily.data[4].icon]" class="mb-5 mx-5" alt="">
             <pre>↑{{ wheather.daily.data[4].temperatureMax.toFixed(0) }}&deg;C</pre>
             <pre>↓{{ wheather.daily.data[4].temperatureMin.toFixed(0) }}&deg;C</pre>
           </div>
+        </div>
         </div>
     </main>
   </section>
@@ -78,6 +81,10 @@ export default {
 .daily
   display: flex
   flex-wrap: wrap
+  justify-content: center
+  .wheaterTomorrow
+    img
+      max-width: 65px
 img
   width: 120px
 </style>
