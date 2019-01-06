@@ -13,22 +13,35 @@ const createStore = () => {
         const CORS = 'https://cors-anywhere.herokuapp.com/';
         const lat = '64.1137179';
         const long = '16.1950004';
+        const KEY = '0103817e28177f2124d9e291e737ed04';
 
-       await axios
-          .get(`${CORS}https://api.darksky.net/forecast/${process.env.API_KEY}/${lat},${long}?lang=sv&units=auto`)
-          .then(data => {
-            commit('SET_STATUS', data.statusText)
-            console.log(data);
-            console.log(process.env.API_KEY);
-            let wheather = data.data;
-            console.log(wheather);
-            commit('SET_WHEATHER', wheather)
+        if (process.browser) {
+          if (navigator.geolocation) {
             
-          })
-          .catch(error => {
-            console.log(error);
-            commit('SET_ERROR', error);
-          })
+              navigator.geolocation.getCurrentPosition( function(location) {
+                let latitude = location.coords.latitude;
+                let longitude = location.coords.longitude;
+                console.log(latitude + " " + longitude);
+
+                axios
+                .get(`${CORS}https://api.darksky.net/forecast/${KEY}/${latitude},${longitude}?lang=sv&units=auto`)
+                .then(data => {
+                  commit('SET_STATUS', data.statusText)
+                  console.log(data);
+                  let wheather = data.data;
+                  console.log(wheather);
+                  commit('SET_WHEATHER', wheather)
+                  
+                })
+                .catch(error => {
+                  console.log(error);
+                  commit('SET_ERROR', error);
+                })
+              })
+          }
+        }
+        
+       
 
       }
       
