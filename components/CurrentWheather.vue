@@ -2,48 +2,44 @@
   <section class="container">
    <div class="spinner mx-auto" v-if="doneLoading === 'false'"></div>
     <main class="mx-auto text-center font-sans" v-if="doneLoading === 'OK'">
-      <div>
-        <img class="my-5" :src="vader[wheather.currently.icon]" alt="Ikon på aktuellt väder" :title="wheather.currently.icon">
-        <span></span>
-        <h1 class="text-5xl">{{ wheather.currently.temperature.toFixed(0) }}&deg;C</h1>
+      <div class="currently mx-5">
+        <div class="weatherNow mb-10">
+          <img :src="vader[wheather.currently.icon]" class="mx-5" alt="">
+          <h1 class="text-5xl">{{ wheather.currently.temperature.toFixed(0) }}&deg;C</h1>
+        </div>
         <h2 class="text-3xl mb-8">{{ wheather.currently.summary }}</h2>
         <p class="mb-2">Känns som {{ wheather.currently.apparentTemperature.toFixed(0)}}&deg;C</p>
         <p class="mb-2">Vind: {{ wheather.currently.windSpeed.toFixed(0) }} m/s</p>
-        <p class="mb-2">{{ wheather.hourly.summary }}</p>
+        <p class="mb-10">{{ wheather.hourly.summary }}</p>
+        <p class="mb-2">Temperaturer under {{ convertToDay($moment.unix(wheather.currently.time).days() ) }}en</p>
+        <span class="mr-3">↑{{ wheather.daily.data[0].temperatureMax.toFixed(0) }}&deg;C</span>
+        <span>↓{{ wheather.daily.data[0].temperatureMin.toFixed(0) }}&deg;C</span>
       </div>
         
         <div class="dailyWeather mt-10">
-          <h4 class="text-center mb-3">Väderprognos</h4>
-          <div  class="daily text-center mx-auto">
-          <div class="wheaterTomorrow">
-            <img :src="vader[wheather.daily.data[1].icon]" class="mb-5 mx-5" alt="">
-            <pre>↑{{ wheather.daily.data[1].temperatureMax.toFixed(0) }}&deg;C</pre>
-            <pre>↓{{ wheather.daily.data[1].temperatureMin.toFixed(0) }}&deg;C</pre>
-          </div>
-          <div class="wheaterTomorrow">
-            <img :src="vader[wheather.daily.data[2].icon]" class="mb-5 mx-5" alt="">
-            <pre>↑{{ wheather.daily.data[2].temperatureMax.toFixed(0) }}&deg;C</pre>
-            <pre>↓{{ wheather.daily.data[2].temperatureMin.toFixed(0) }}&deg;C</pre>
-          </div>
-          <div class="wheaterTomorrow">
-            <img :src="vader[wheather.daily.data[3].icon]" class="mb-5 mx-5" alt="">
-            <pre>↑{{ wheather.daily.data[3].temperatureMax.toFixed(0) }}&deg;C</pre>
-            <pre>↓{{ wheather.daily.data[3].temperatureMin.toFixed(0) }}&deg;C</pre>
-          </div>
-          <div class="wheaterTomorrow">
-            <img :src="vader[wheather.daily.data[4].icon]" class="mb-5 mx-5" alt="">
-            <pre>↑{{ wheather.daily.data[4].temperatureMax.toFixed(0) }}&deg;C</pre>
-            <pre>↓{{ wheather.daily.data[4].temperatureMin.toFixed(0) }}&deg;C</pre>
+          <h4 class="text-center mb-3 underline">7 dagarsprognos</h4>
+          <div class="daily text-center mx-auto my-10">
+          
+          <div v-for="(day, index) in wheather.daily.data.slice(1)" :key="day.index">
+              <img :src="vader[day.icon]" class="mb-5 mx-5 weather-icon" alt="">
+              <pre>↑{{ day.temperatureMax.toFixed(0) }}&deg;C</pre>
+              <pre>↓{{ day.temperatureMin.toFixed(0) }}&deg;C</pre>
+              <pre class="mt-1"> {{ convertToDay($moment.unix(day.time).days() ) }} </pre>
+              <pre class="mt-1"> {{ $moment.unix(day.time).format("DD/MM") }} </pre>
+              
+              
+              <!-- {{convertToDay(vader.time)}} -->
+              <br>
           </div>
         </div>
-        </div>
+      </div>
     </main>
   </section>
 </template>
 
 <script>
 import {mapState} from 'vuex';
-
+import moment from 'moment'
 export default {
   data() {
     return {
@@ -59,31 +55,53 @@ export default {
         'snow': require('../assets/images/snow.svg'),
         'wind': require('../assets/images/wind.svg')
       },
-      temp: ''
+      dagar: {
+        0: 'Söndag',
+        1: 'Måndag',
+        2: 'Tisdag',
+        3: 'Onsdag',
+        4: 'Torsdag',
+        5: 'Fredag',
+        6: 'Lördag',
+      },
+      error: ''
+    }
+  },
+  methods: {
+    convertToDay(value){
+      
+      return this.dagar[value]
     }
   },
   mounted() {
     this.$store.dispatch('getWheather');
+    
+    
   },
   computed: {
     ...mapState([
       'wheather',
       'doneLoading'
     ])
-  },
-
+  }
 }
 </script>
 
 
 <style lang="sass">
+.currently
+  .weatherNow
+    display: grid
+    grid-template-columns: 130px 130px
+    align-items: center
+    justify-content: center
+  img
+    width: 100px
 .daily
   display: flex
   flex-wrap: wrap
   justify-content: center
   .wheaterTomorrow
-    img
-      max-width: 65px
-img
-  width: 120px
+    .weather-icon
+      max-width: 100%
 </style>

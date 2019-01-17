@@ -1,9 +1,9 @@
-if (process.env.NODE_ENV !== 'production') require('dotenv').config()
+const env = require('dotenv').config();
 const pkg = require('./package');
 
 module.exports = {
   mode: 'universal',
-
+  env: env.parsed,
   /*
   ** Headers of the page
   */
@@ -18,11 +18,6 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-
-  env: {
-    API_KEY: process.env.API_KEY
-  },
-
   /*
   ** Customize the progress-bar color
   */
@@ -48,7 +43,8 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     ['@nuxtjs/dotenv', { systemvars: true }],
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/moment'
   ],
   /*
   ** Axios module configuration
