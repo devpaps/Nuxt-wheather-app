@@ -14,7 +14,7 @@ const createStore = () => {
         const CORS = 'https://cors-anywhere.herokuapp.com/';
         /* const lat = '64.1137179';
         const long = '16.1950004'; */
-        //const KEY = '0103817e28177f2124d9e291e737ed04';
+        const KEY = '0103817e28177f2124d9e291e737ed04';
 
         if (process.browser) {
           if (navigator.geolocation) {
@@ -24,7 +24,7 @@ const createStore = () => {
               let longitude = location.coords.longitude;
               console.log(latitude + " " + longitude);
               axios
-              .get(`${CORS}https://api.darksky.net/forecast/${process.env.API_KEY}/${latitude},${longitude}?lang=sv&units=auto&exclude="flags,alerts,offset,minutely"`)
+              .get(`${CORS}https://api.darksky.net/forecast/${KEY}/${latitude},${longitude}?lang=sv&units=auto&exclude="flags,alerts,offset,minutely"`)
               .then(data => {
                 commit('SET_STATUS', data.statusText)
                 let wheather = data.data;
