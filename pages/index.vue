@@ -33,7 +33,7 @@ export default {
 
 
 body
-  background: #293251
+  background: linear-gradient(-40deg, #637CD3 0%, #2F39B5 100%)
   color: #f1f1f1
 
 

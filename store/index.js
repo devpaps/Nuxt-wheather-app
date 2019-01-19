@@ -15,11 +15,12 @@ const createStore = () => {
         /* const lat = '64.1137179';
         const long = '16.1950004'; */
         const KEY = '0103817e28177f2124d9e291e737ed04';
-
+    
         if (process.browser) {
+          
           if (navigator.geolocation) {
-            
-            navigator.geolocation.getCurrentPosition( function(location) {
+
+            navigator.geolocation.getCurrentPosition( function(location, options) {
               let latitude = location.coords.latitude;
               let longitude = location.coords.longitude;
               console.log(latitude + " " + longitude);

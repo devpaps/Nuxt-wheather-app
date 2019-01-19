@@ -26,9 +26,6 @@
               <pre>↓{{ day.temperatureMin.toFixed(0) }}&deg;C</pre>
               <pre class="mt-1"> {{ convertToDay($moment.unix(day.time).days() ) }} </pre>
               <pre class="mt-1"> {{ $moment.unix(day.time).format("DD/MM") }} </pre>
-              
-              
-              <!-- {{convertToDay(vader.time)}} -->
               <br>
           </div>
         </div>
@@ -75,8 +72,6 @@ export default {
   },
   mounted() {
     this.$store.dispatch('getWheather');
-    
-    
   },
   computed: {
     ...mapState([
