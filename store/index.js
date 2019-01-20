@@ -7,6 +7,7 @@ const createStore = () => {
     state: {
       wheather: '',
       doneLoading: 'false',
+      position: '',
       error: ''
     },
     actions: {
@@ -24,16 +25,21 @@ const createStore = () => {
               let latitude = location.coords.latitude;
               let longitude = location.coords.longitude;
               console.log(latitude + " " + longitude);
-              axios
-              .get(`${CORS}https://api.darksky.net/forecast/${KEY}/${latitude},${longitude}?lang=sv&units=auto&exclude="flags,alerts,offset,minutely"`)
-              .then(data => {
+              axios.all([
+                axios.get(`${CORS}https://api.darksky.net/forecast/${KEY}/${latitude},${longitude}?lang=sv&units=auto&exclude="flags,alerts,offset,minutely"`),
+                axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyBLilWwDtdymiAABzXQzt_AZ-_fiBRrrbw`)
+              ])
+              .then(axios.spread((data, pos) => {
                 commit('SET_STATUS', data.statusText)
                 let wheather = data.data;
-                console.log(wheather);
+                let position = pos;
                 commit('SET_WHEATHER', wheather)
+                commit('SET_POSITION', position)
+                console.log(wheather);
+                console.log(pos);
                 
-              })
-              .catch(() => {
+              }))
+              .catch((error) => {
                 console.log(error);
                 commit('SET_ERROR', {
                   state: 'Error'
@@ -43,7 +49,7 @@ const createStore = () => {
           } else {
             // geolocation is not supported
             // get your location some other way
-            console.log('geolocation is not enabled on this browser')
+            alert('geolocation is not enabled on this browser')
           }
         }
         
@@ -55,6 +61,9 @@ const createStore = () => {
     mutations: {
       SET_WHEATHER (state, wheather) {
         state.wheather = wheather;
+      },
+      SET_POSITION (state, position) {
+        state.position = position;
       },
       SET_STATUS (state, doneLoading) {
         state.doneLoading = doneLoading;

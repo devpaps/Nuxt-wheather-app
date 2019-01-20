@@ -1,11 +1,15 @@
 <template>
   <section class="container">
    <div class="spinner mx-auto" v-if="doneLoading === 'false'"></div>
-    <main class="mx-auto text-center font-sans" v-if="doneLoading === 'OK'">
+    <main class="mx-auto text-center" v-if="doneLoading === 'OK'">
+      <div class="position inline">
+        <img src="~/assets/images/position.svg" alt="GPS position image" style="width: 20px">
+        <span class="text-left my-10">{{position.data.results[0].formatted_address}}</span>
+      </div>
       <div class="currently mx-5">
         <div class="weatherNow mb-10">
-          <img :src="vader[wheather.currently.icon]" class="mx-5" alt="">
           <h1 class="text-5xl">{{ wheather.currently.temperature.toFixed(0) }}&deg;C</h1>
+          <img :src="vader[wheather.currently.icon]" class="mx-5" alt="">
         </div>
         <h2 class="text-3xl mb-8">{{ wheather.currently.summary }}</h2>
         <p class="mb-2">Känns som {{ wheather.currently.apparentTemperature.toFixed(0)}}&deg;C</p>
@@ -76,7 +80,8 @@ export default {
   computed: {
     ...mapState([
       'wheather',
-      'doneLoading'
+      'doneLoading',
+      'position'
     ])
   }
 }

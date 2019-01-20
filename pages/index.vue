@@ -35,7 +35,7 @@ export default {
 body
   background: linear-gradient(-40deg, #637CD3 0%, #2F39B5 100%)
   color: #f1f1f1
-
+  font-family: Rubik, 'sans-serif'
 
 
 .spinner
