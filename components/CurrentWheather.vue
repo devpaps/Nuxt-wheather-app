@@ -1,18 +1,18 @@
 <template>
   <section class="container">
    <div class="spinner mx-auto" v-if="doneLoading === 'false'"></div>
-    <main class="mx-auto text-center" v-if="doneLoading === 'OK'">
-      <div class="position inline">
+    <main class="mx-auto" v-if="doneLoading === 'OK'">
+      <div class="position inline-block my-10">
         <img src="~/assets/images/position.svg" alt="GPS position image" style="width: 20px">
-        <span class="text-left my-10">{{position.data.results[0].formatted_address}}</span>
+        <span class="text-left my-10 font-bold">{{position.data.results[0].address_components[1].long_name}}</span>
       </div>
       <div class="currently mx-5">
         <div class="weatherNow mb-10">
           <h1 class="text-5xl">{{ wheather.currently.temperature.toFixed(0) }}&deg;C</h1>
           <img :src="vader[wheather.currently.icon]" class="mx-5" alt="">
+          <p class="mb-2 font-bold text-sm">Känns som {{ wheather.currently.apparentTemperature.toFixed(0)}}&deg;C</p>
         </div>
-        <h2 class="text-3xl mb-8">{{ wheather.currently.summary }}</h2>
-        <p class="mb-2">Känns som {{ wheather.currently.apparentTemperature.toFixed(0)}}&deg;C</p>
+        <h2 class="my-3">{{ wheather.currently.summary }}</h2>
         <p class="mb-2">Vind: {{ wheather.currently.windSpeed.toFixed(0) }} m/s</p>
         <p class="mb-10">{{ wheather.hourly.summary }}</p>
         <p class="mb-2">Temperaturer under {{ convertToDay($moment.unix(wheather.currently.time).days() ) }}en</p>
@@ -92,9 +92,17 @@ export default {
 .currently
   .weatherNow
     display: grid
-    grid-template-columns: 130px 130px
+    grid-template-columns: 1fr 130px
     align-items: center
     justify-content: center
+    max-width: 300px
+    margin: auto
+    //grid-template-areas: "main main sidebar sidebar"
+    //grid-area: header
+    @media (max-width:330px)
+      display: block
+      img
+        margin: 1rem 0
   img
     width: 100px
 .daily
