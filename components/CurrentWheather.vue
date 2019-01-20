@@ -1,12 +1,12 @@
 <template>
-  <section class="container">
+  <section class="">
    <div class="spinner mx-auto" v-if="doneLoading === 'false'"></div>
     <main class="mx-auto" v-if="doneLoading === 'OK'">
-      <div class="position inline-block my-10">
+      <div class="position text-left my-10">
         <img src="~/assets/images/position.svg" alt="GPS position image" style="width: 20px">
-        <span class="text-left my-10 font-bold">{{position.data.results[0].address_components[1].long_name}}</span>
+        <span class="my-10 font-bold text-xl">{{position.data.results[0].address_components[1].long_name}}</span>
       </div>
-      <div class="currently mx-5">
+      <div class="currently text-left">
         <div class="weatherNow mb-10">
           <h1 class="text-5xl">{{ wheather.currently.temperature.toFixed(0) }}&deg;C</h1>
           <img :src="vader[wheather.currently.icon]" class="mx-5" alt="">
@@ -26,10 +26,10 @@
           
           <div v-for="(day, index) in wheather.daily.data.slice(1)" :key="day.index">
               <img :src="vader[day.icon]" class="mb-5 mx-5 weather-icon" alt="">
-              <pre>↑{{ day.temperatureMax.toFixed(0) }}&deg;C</pre>
-              <pre>↓{{ day.temperatureMin.toFixed(0) }}&deg;C</pre>
-              <pre class="mt-1"> {{ convertToDay($moment.unix(day.time).days() ) }} </pre>
-              <pre class="mt-1"> {{ $moment.unix(day.time).format("DD/MM") }} </pre>
+              <p>↑{{ day.temperatureMax.toFixed(0) }}&deg;C</p>
+              <p>↓{{ day.temperatureMin.toFixed(0) }}&deg;C</p>
+              <p class="mt-1"> {{ convertToDay($moment.unix(day.time).days() ) }} </p>
+              <p class="mt-1"> {{ $moment.unix(day.time).format("DD/MM") }} </p>
               <br>
           </div>
         </div>
@@ -89,22 +89,26 @@ export default {
 
 
 <style lang="sass">
-.currently
-  .weatherNow
-    display: grid
-    grid-template-columns: 1fr 130px
-    align-items: center
-    justify-content: center
-    max-width: 300px
-    margin: auto
-    //grid-template-areas: "main main sidebar sidebar"
-    //grid-area: header
-    @media (max-width:330px)
-      display: block
-      img
-        margin: 1rem 0
-  img
-    width: 100px
+.container
+  max-width: 300px
+  .currently
+    background: hsla(255,255,255, 0.2)
+    padding: 1rem
+    border-radius: 12px
+    .weatherNow
+      display: grid
+      grid-template-columns: 1fr 1fr
+      align-items: center
+      justify-content: center
+      margin: auto
+      //grid-template-areas: "main main sidebar sidebar"
+      //grid-area: header
+      @media (max-width:330px)
+        display: block
+        img
+          margin: 1rem 0
+    img
+      width: 100px
 .daily
   display: flex
   flex-wrap: wrap
