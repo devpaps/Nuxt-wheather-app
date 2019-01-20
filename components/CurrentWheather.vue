@@ -1,5 +1,5 @@
 <template>
-  <section class="">
+  <section class="main">
    <div class="spinner mx-auto" v-if="doneLoading === 'false'"></div>
     <main class="mx-auto" v-if="doneLoading === 'OK'">
       <div class="position text-left my-10">
@@ -13,11 +13,11 @@
           <p class="mb-2 font-bold text-sm">Känns som {{ wheather.currently.apparentTemperature.toFixed(0)}}&deg;C</p>
         </div>
         <h2 class="my-3">{{ wheather.currently.summary }}</h2>
-        <p class="mb-2">Vind: {{ wheather.currently.windSpeed.toFixed(0) }} m/s</p>
+        <p class="mb-2"><span class="font-bold">Vind:</span> {{ wheather.currently.windSpeed.toFixed(0) }} m/s</p>
         <p class="mb-10">{{ wheather.hourly.summary }}</p>
         <p class="mb-2">Temperaturer under {{ convertToDay($moment.unix(wheather.currently.time).days() ) }}en</p>
-        <span class="mr-3">↑{{ wheather.daily.data[0].temperatureMax.toFixed(0) }}&deg;C</span>
-        <span>↓{{ wheather.daily.data[0].temperatureMin.toFixed(0) }}&deg;C</span>
+        <span class="mr-3 font-bold">↑{{ wheather.daily.data[0].temperatureMax.toFixed(0) }}&deg;C</span>
+        <span class="font-bold">↓{{ wheather.daily.data[0].temperatureMin.toFixed(0) }}&deg;C</span>
       </div>
         
         <div class="dailyWeather mt-10">
@@ -26,8 +26,8 @@
           
           <div v-for="(day, index) in wheather.daily.data.slice(1)" :key="day.index">
               <img :src="vader[day.icon]" class="mb-5 mx-5 weather-icon" alt="">
-              <p>↑{{ day.temperatureMax.toFixed(0) }}&deg;C</p>
-              <p>↓{{ day.temperatureMin.toFixed(0) }}&deg;C</p>
+              <p class="font-bold">↑{{ day.temperatureMax.toFixed(0) }}&deg;C</p>
+              <p class="font-bold">↓{{ day.temperatureMin.toFixed(0) }}&deg;C</p>
               <p class="mt-1"> {{ convertToDay($moment.unix(day.time).days() ) }} </p>
               <p class="mt-1"> {{ $moment.unix(day.time).format("DD/MM") }} </p>
               <br>
@@ -70,7 +70,6 @@ export default {
   },
   methods: {
     convertToDay(value){
-      
       return this.dagar[value]
     }
   },
@@ -89,8 +88,10 @@ export default {
 
 
 <style lang="sass">
-.container
-  max-width: 300px
+.main
+  max-width: 100vw
+  margin: 0 auto
+  padding: 0 1rem
   .currently
     background: hsla(255,255,255, 0.2)
     padding: 1rem

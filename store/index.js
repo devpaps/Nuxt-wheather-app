@@ -12,6 +12,7 @@ const createStore = () => {
     },
     actions: {
       async getWheather({commit}) {
+        
         const CORS = 'https://cors-anywhere.herokuapp.com/';
         /* const lat = '64.1137179';
         const long = '16.1950004'; */
@@ -21,7 +22,13 @@ const createStore = () => {
           
           if (navigator.geolocation) {
 
-            navigator.geolocation.getCurrentPosition( function(location, options) {
+            // var options = {
+            //   enableHighAccuracy: true,
+            //   timeout: 5000,
+            //   maximumAge: 0
+            // };
+            navigator.geolocation.getCurrentPosition( (location, options) => {
+              
               let latitude = location.coords.latitude;
               let longitude = location.coords.longitude;
               console.log(latitude + " " + longitude);
