@@ -16,7 +16,7 @@
         <p class="mb-2"><span class="font-bold">Vind:</span> {{ wheather.currently.windSpeed.toFixed(0) }} m/s</p>
         <p class="mb-10">{{ wheather.hourly.summary }}</p>
         <p class="mb-2">Temperaturer under {{ convertToDay($moment.unix(wheather.currently.time).days() ) }}en</p>
-        <span class="mr-3 text-red-light font-bold">↑{{ wheather.daily.data[0].temperatureMax.toFixed(0) }}&deg;C</span>
+        <span class="mr-3 font-bold">↑{{ wheather.daily.data[0].temperatureMax.toFixed(0) }}&deg;C</span>
         <span class="font-bold text-blue-light">↓{{ wheather.daily.data[0].temperatureMin.toFixed(0) }}&deg;C</span>
       </div>
         
@@ -27,7 +27,7 @@
           <div class="mx-5" v-for="(day, index) in wheather.daily.data.slice(1)" :key="day.index">
               <p class="my-5 text-light font-bold"> {{ convertToDay($moment.unix(day.time).days() ) }} </p>
               <img :src="vader[day.icon]" class="mb-5 weather-icon block mx-auto" alt="">
-              <p class="font-bold text-red-light">↑{{ day.temperatureMax.toFixed(0) }}&deg;C</p>
+              <p class="font-bold">↑{{ day.temperatureMax.toFixed(0) }}&deg;C</p>
               <p class="font-bold text-blue-light">↓{{ day.temperatureMin.toFixed(0) }}&deg;C</p>
               <p class="mt-1"> {{ $moment.unix(day.time).format("DD/MM") }} </p>
               <br>
