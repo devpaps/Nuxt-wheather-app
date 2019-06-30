@@ -1,5 +1,6 @@
 const env = require('dotenv').config();
 const pkg = require('./package');
+const path = require('path');
 
 module.exports = {
   mode: 'universal',
@@ -45,7 +46,8 @@ module.exports = {
     '@nuxtjs/axios',
     ['@nuxtjs/dotenv', { systemvars: true }],
     '@nuxtjs/pwa',
-    '@nuxtjs/moment'
+    '@nuxtjs/moment',
+    'nuxt-purgecss'
   ],
   /*
   ** Axios module configuration
@@ -61,6 +63,11 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
+    postcss: {
+      plugins: {
+        tailwindcss: path.resolve(__dirname, './tailwind.config.js')
+      }
+    },
     extractCSS: true,
     extend(config, ctx) {
       

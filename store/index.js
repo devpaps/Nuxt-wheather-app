@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const createStore = () => {
   return new Vuex.Store({
-    strict: true,
+    strict: process.env.NODE_ENV !== 'production',
     state: {
       wheather: '',
       doneLoading: 'false',
@@ -11,13 +11,13 @@ const createStore = () => {
       error: ''
     },
     actions: {
-      async getWheather({
-        commit
-      }) {
+      async getWheather({ commit }) {
 
         const CORS = 'https://cors-anywhere.herokuapp.com/';
         /* const lat = '64.1137179';
         const long = '16.1950004'; */
+        //0103817e28177f2124d9e291e737ed04
+        //AIzaSyCYbCE5qGctjE_ZI74kOzFzXJhL9sAReIk
         const KEY = '0103817e28177f2124d9e291e737ed04';
 
         if (process.browser) {
@@ -29,6 +29,7 @@ const createStore = () => {
             //   timeout: 5000,
             //   maximumAge: 0
             // };
+            //Geocode google
             navigator.geolocation.getCurrentPosition((location, options) => {
 
               let latitude = location.coords.latitude;
@@ -62,11 +63,7 @@ const createStore = () => {
             alert('geolocation is not enabled on this browser')
           }
         }
-
-
-
       }
-
     },
     mutations: {
       SET_WHEATHER(state, wheather) {

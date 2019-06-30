@@ -4,7 +4,7 @@
     <main class="mx-auto" v-if="doneLoading === 'OK'">
       <div class="position text-left my-10">
         <img src="~/assets/images/position.svg" alt="GPS position image" style="width: 20px">
-        <span class="my-10 font-bold text-xl">{{position.data.results[0].address_components[2].long_name}}</span>
+        <span class="my-10 font-bold text-xl">{{position.data.results[0].address_components[1].long_name}}</span>
       </div>
       <div class="currently text-left">
         <div class="weatherNow mb-10">
@@ -23,7 +23,7 @@
       <div class="dailyWeather mt-10">
         <h4 class="text-center mb-3 underline">7 dagarsprognos</h4>
         <div class="daily text-left my-10">
-          <div class="mx-5" v-for="(day, index) in wheather.daily.data.slice(1)" :key="day.index">
+          <div class="mx-5" v-for="day in wheather.daily.data.slice(1)" :key="day.index">
             <p class="my-5 text-light font-bold"> {{ convertToDay($moment.unix(day.time).days() ) }} </p>
             <img :src="vader[day.icon]" class="mb-5 weather-icon block mx-auto" alt="">
             <p class="font-bold">↑{{ day.temperatureMax.toFixed(0) }}&deg;C</p>
