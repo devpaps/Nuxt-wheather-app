@@ -1,10 +1,18 @@
 <template>
   <section class="main">
+  <!--   <div class="theme-switch-wrapper">
+      <label class="theme-switch" for="checkbox">
+        <input type="checkbox" id="checkbox" />
+        <div class="slider round"></div>
+      </label>
+        <em>Enable Dark Mode!</em>
+    </div> -->
    <div class="spinner mx-auto" v-if="doneLoading === 'false'"></div>
     <main class="mx-auto" v-if="doneLoading === 'OK'">
       <div class="position text-left my-10">
         <img src="~/assets/images/position.svg" alt="GPS position image" style="width: 20px">
-        <span class="my-10 font-bold text-xl">{{position.data.results[0].address_components[1].long_name}}</span>
+        <span class="my-10 font-bold text-xl">{{position.data.results[0].address_components[1].long_name}} - </span>
+          <span class="mb-5 font-bold text-sm">Uppdaterad den {{($moment.unix(wheather.currently.time).format('LLL')) }}</span>
       </div>
       <div class="currently text-left">
         <div class="weatherNow mb-10">
@@ -12,6 +20,8 @@
           <img :src="vader[wheather.currently.icon]" class="today" alt="Image on current weather">
           <p class="mb-2 font-bold text-sm">Känns som {{ wheather.currently.apparentTemperature.toFixed(0)}}&deg;C</p>
         </div>
+          <p class="mb-5 font-bold text-sm">{{wheather.currently.pressure}} QNH</p>
+
         <h2 class="my-3">{{ wheather.currently.summary }}</h2>
         <p class="mb-2"><span class="font-bold">Vind:</span> {{ wheather.currently.windSpeed.toFixed(0) }} m/s</p>
         <p class="mb-10">{{ wheather.hourly.summary }}</p>
@@ -21,7 +31,8 @@
       </div>
         
       <div class="dailyWeather mt-10">
-        <h4 class="text-center mb-3 underline">7 dagarsprognos</h4>
+        <h4 class="text-center mb-3 text-2xl underline">7 dagarsprognos</h4>
+        <p class="text-left mt-5"><span class="font-bold block mb-1">Sammanfattning: </span> {{wheather.daily.summary}}</p>
         <div class="daily text-left my-10">
           <div class="mx-5" v-for="day in wheather.daily.data.slice(1)" :key="day.index">
             <p class="my-5 text-light font-bold"> {{ convertToDay($moment.unix(day.time).days() ) }} </p>
@@ -39,7 +50,9 @@
 
 <script>
 import {mapState} from 'vuex';
-import moment from 'moment'
+import moment from 'moment';
+
+
 
 export default {
   data() {
@@ -122,4 +135,48 @@ export default {
   .wheaterTomorrow
     .weather-icon
       max-width: 100%
+.theme-switch-wrapper
+  display: flex
+  align-items: center
+
+em
+  margin-left: 10px
+  font-size: 1rem
+
+.theme-switch
+  display: inline-block
+  height: 34px
+  position: relative
+  width: 60px
+  input
+    display: none
+
+.slider
+  background-color: #ccc
+  bottom: 0
+  cursor: pointer
+  left: 0
+  position: absolute
+  right: 0
+  top: 0
+  transition: .4s
+  &:before
+    background-color: #fff
+    bottom: 4px
+    content: ""
+    height: 26px
+    left: 4px
+    position: absolute
+    transition: .4s
+    width: 26px
+
+input:checked + .slider
+  background-color: #66bb6a
+  &:before
+    transform: translateX(26px)
+
+.slider.round
+  border-radius: 34px
+  &:before
+    border-radius: 50%
 </style>

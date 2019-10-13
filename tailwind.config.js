@@ -5,4 +5,9 @@ module.exports = {
   theme: {},
   variants: {},
   plugins: [],
+  colors: {
+    background: {
+      'primary': 'red' 
+    }
+  }
 }
