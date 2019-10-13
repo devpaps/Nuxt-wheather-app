@@ -2,7 +2,9 @@
   <section class="container mx-auto">
     <div>
       <!-- <Search/> -->
+
       <CurrentWheather/>
+
     </div>
 
  
@@ -12,6 +14,7 @@
 <script>
 import CurrentWheather from '~/components/CurrentWheather.vue';
 import Search from '~/components/Search.vue';
+
 
 export default {
   data () {

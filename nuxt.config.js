@@ -9,7 +9,7 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    title: "Dagg",
+    title: "Dagg - Senaste vädret",
     meta: [
       { charset: "utf-8" },
       {
@@ -53,6 +53,12 @@ module.exports = {
   ],
   moment: {
     locales: ["sv"]
+  },
+  pwa: {
+    manifest: {
+      name: "Dagg - Aktuellt väder",
+      lang: "sv"
+    }
   },
   /*
    ** Axios module configuration

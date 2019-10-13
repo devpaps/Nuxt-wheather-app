@@ -20,10 +20,12 @@
           <img :src="vader[wheather.currently.icon]" class="today" alt="Image on current weather">
           <p class="mb-2 font-bold text-sm">Känns som {{ wheather.currently.apparentTemperature.toFixed(0)}}&deg;C</p>
         </div>
-          <p class="mb-5 font-bold text-sm">{{wheather.currently.pressure}} QNH</p>
+          <p class="mb-2 text-sm"><span class="font-bold">Lufttryck: </span>{{wheather.currently.pressure.toFixed(1)}} Qnh</p>
+          <p v-if="wheather.currently.precipIntensity <= 0" class="mb-5 text-sm"><span class="font-bold">Nederbörd: </span>0 mm</p>
+          <p v-if="wheather.currently.precipIntensity > 1" class="mb-5 text-sm"><span class="font-bold">Nederbörd: </span>{{wheather.currently.precipIntensity.toFixed(1)}}mm {{wheather.currently.precipType}} </p>
 
         <h2 class="my-3">{{ wheather.currently.summary }}</h2>
-        <p class="mb-2"><span class="font-bold">Vind:</span> {{ wheather.currently.windSpeed.toFixed(0) }} m/s</p>
+        <p class="mb-2"><span class="font-bold">Vind:</span> {{(wheather.currently.windSpeed / 0.621 * (1000 / 60) / 60).toFixed(1) }} m/s</p>
         <p class="mb-10">{{ wheather.hourly.summary }}</p>
         <p class="mb-2">Temperaturer under {{ convertToDay($moment.unix(wheather.currently.time).days() ) }}en</p>
         <span class="mr-3 font-bold">↑{{ wheather.daily.data[0].temperatureMax.toFixed(0) }}&deg;C</span>
@@ -57,6 +59,11 @@ import moment from 'moment';
 export default {
   data() {
     return {
+      vaderTyp: {
+        rain: 'Regn',
+        snow: 'Snö',
+        sleet: 'Snöblandat regn' 
+      },
       vader: {
         'clear-day': require('../assets/images/clear-day.svg'),
         'partly-cloudy-day': require('../assets/images/partly-cloudy-day.svg'),
